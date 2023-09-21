@@ -27,6 +27,7 @@ public class Formation {
             return matieres.get(matiere);
         } else{
             System.out.println("La matière "  + matiere  + " est pas dans la formation.");
+            return -1;
         }
     }
 }

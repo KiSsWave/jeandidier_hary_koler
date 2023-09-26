@@ -31,6 +31,30 @@ public class Groupe {
         }
     }
 
+    public double moyenneGroupeMatiere(String matiere){
+        double moy = 0;
+        for (List<Etudiant> listeEtudiants: etudiants.values()){
+            for (Etudiant etudiant: listeEtudiants){
+                moy += etudiant.calculerMoyenneMatiere(matiere);
+            }
+            moy = moy/listeEtudiants.size();
+        }
+        return moy;
+    }
+
+    public double moyenneGeneraleGroupe(){
+        double moy = 0;
+        for (List<Etudiant> listeEtudiants: etudiants.values()){
+            for (Etudiant etudiant: listeEtudiants){
+                moy += etudiant.calculerMoyenneGenerale();
+            }
+            moy = moy/listeEtudiants.size();
+        }
+
+        moy = Math.round(moy * Math.pow(10,2)) / Math.pow(10,2);
+        return moy;
+    }
+
     public Map<Formation, List<Etudiant>> getEtudiants() {
         return etudiants;
     }

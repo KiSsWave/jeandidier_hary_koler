@@ -39,6 +39,7 @@ public class Groupe {
             }
             moy = moy/listeEtudiants.size();
         }
+        moy = Math.round(moy * Math.pow(10,2)) / Math.pow(10,2);
         return moy;
     }
 

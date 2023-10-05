@@ -14,8 +14,8 @@ public class TestGroupe {
     public void Initialisation() {
         groupe = new Groupe();
         formation = new Formation("Informatique");
-        etudiant1 = new Etudiant(new Identite("NIP123", "John", "Doe"), formation);
-        etudiant2 = new Etudiant(new Identite("NIP456", "Alice", "Smith"), formation);
+        etudiant1 = new Etudiant(new Identite("NIP123", "John"), formation);
+        etudiant2 = new Etudiant(new Identite("NIP456", "Alice"), formation);
     }
 
     @Test

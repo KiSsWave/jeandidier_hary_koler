@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 public class Groupe {
     private Map<Formation, List<Etudiant>> etudiants;
@@ -31,6 +28,7 @@ public class Groupe {
         }
     }
 
+
     public double moyenneGroupeMatiere(String matiere){
         double moy = 0;
         for (List<Etudiant> listeEtudiants: etudiants.values()){
@@ -56,8 +54,28 @@ public class Groupe {
         return moy;
     }
 
+
+    public void triAlpha() {
+        for (List<Etudiant> listeEtudiants : etudiants.values()) {
+            Collections.sort(listeEtudiants);
+        }
+    }
+
+    public void triAntiAlpha() {
+        for (List<Etudiant> listeEtudiants : etudiants.values()) {
+            Collections.sort(listeEtudiants, Collections.reverseOrder());
+        }
+    }
+
+
     public Map<Formation, List<Etudiant>> getEtudiants() {
         return etudiants;
     }
+
+    public List<Etudiant> getEtudiantsPourFormation(Formation formation) {
+        return etudiants.get(formation);
+    }
+
+
 
 }

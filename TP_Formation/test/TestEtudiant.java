@@ -19,12 +19,12 @@ public class TestEtudiant {
         formation.ajouterMatiere("Physique", 2);
         formation.ajouterMatiere("Chimie", 1);
 
-        identite = new Identite("NIP123", "Clement", "Jeandidier");
+        identite = new Identite("NIP123", "Clement");
         etudiant = new Etudiant(identite, formation);
     }
 
     @Test
-    public void testAjouterNote() {
+    public void testAjouterNote() throws NoteInvalideException {
 
         //ajout de note
         etudiant.ajouterNote("Math", 15);
@@ -35,7 +35,7 @@ public class TestEtudiant {
     }
 
     @Test
-    public void testCalculerMoyenneMatiere() {
+    public void testCalculerMoyenneMatiere() throws NoteInvalideException{
 
         //ajout de notes
         etudiant.ajouterNote("Math", 15);
@@ -47,7 +47,7 @@ public class TestEtudiant {
     }
 
     @Test
-    public void testCalculerMoyenneGenerale() {
+    public void testCalculerMoyenneGenerale() throws NoteInvalideException{
 
         //ajout de notes
         etudiant.ajouterNote("Math", 15);

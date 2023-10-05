@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Etudiant {
+public class Etudiant implements Comparable<Etudiant> {
     private Identite identite;
     private Formation formation;
     private Map<String, List<Integer>> notes;
@@ -14,23 +14,22 @@ public class Etudiant {
         this.notes = new HashMap<>();
     }
 
-    public void ajouterNote(String matiere, int note) {
+    public void ajouterNote(String matiere, int note) throws NoteInvalideException {
         if (formation.contientMatiere(matiere) && note >= 0 && note <= 20) {
             if (!notes.containsKey(matiere)) {
                 notes.put(matiere, new ArrayList<>());
             }
             notes.get(matiere).add(note);
         } else {
-            System.out.println("Impossible d'ajouter la note. Vérifiez la matière ou la note.");
+            throw new NoteInvalideException("Impossible d'ajouter la note. Vérifiez la matière ou la note.");
         }
     }
 
-    public double calculerMoyenneMatiere(String matiere) {
+    public double calculerMoyenneMatiere(String matiere) throws NoteInvalideException {
         if (notes.containsKey(matiere)) {
             List<Integer> listeNotes = notes.get(matiere);
             if (listeNotes.isEmpty()) {
-                System.out.println("Aucune note trouvée pour la matière '" + matiere + "'.");
-                return -1;
+                throw new NoteInvalideException("Aucune note trouvée pour la matière '" + matiere + "'.");
             }
             double somme = 0.0;
             for (int note : listeNotes) {
@@ -38,22 +37,34 @@ public class Etudiant {
             }
             return somme / listeNotes.size();
         } else {
-            System.out.println("Aucune note trouvée pour la matière '" + matiere + "'.");
-            return -1;
+            throw new NoteInvalideException("Aucune note trouvée pour la matière '" + matiere + "'.");
         }
     }
 
-    public double calculerMoyenneGenerale() {
+    public double calculerMoyenneGenerale() throws NoteInvalideException {
         double sommeNotes = 0.0;
         double sommeCoefficients = 0.0;
+        boolean auMoinsUneNote = false;
 
         for (String matiere : notes.keySet()) {
             double moyenneMatiere = calculerMoyenneMatiere(matiere);
             int coefficient = formation.getCoefMatiere(matiere);
             sommeNotes += moyenneMatiere * coefficient;
             sommeCoefficients += coefficient;
+            if (!notes.get(matiere).isEmpty()) {
+                auMoinsUneNote = true;
+            }
+        }
+        if (!auMoinsUneNote) {
+            throw new NoteInvalideException("Aucune note trouvée dans toutes les matières.");
         }
         return sommeNotes / sommeCoefficients;
+    }
+
+
+    @Override
+    public int compareTo(Etudiant autreEtudiant) {
+        return this.getIdentite().getNom().compareTo(autreEtudiant.getIdentite().getNom());
     }
 
     public Identite getIdentite() {
